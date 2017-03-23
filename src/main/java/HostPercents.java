@@ -3,7 +3,7 @@
  * Специально разделим задачу на 2 части:
  *  - часть #1: wordcount по доменам
  *  - часть #2: map считает частичные суммы,
- *             reducer - считает grand_total и выводит проценты по каждому домену
+ *              reducer - считает grand_total и выводит проценты по каждому домену
  */
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -66,7 +66,8 @@ public class HostPercents extends Configured implements Tool {
 
         @Override
         protected void cleanup(Context context) throws IOException, InterruptedException {
-            context.write(new Text("COUNT"), new IntWritable(sum));
+            /* maybe it's good idea to write grand total here? */
+            /* write your code here */
         }
     }
 
@@ -74,21 +75,8 @@ public class HostPercents extends Configured implements Tool {
         int total_sum = 0;
         @Override
         protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-            String str_key = key.toString();
-            int cnt = 0;
-
-            for (IntWritable x: values) {
-                cnt += x.get();
-            }
-
-            if (str_key.equals("COUNT")) {
-                total_sum = cnt;
-                return;
-            }
-
-            assert str_key.startsWith("H:");
-            String host = str_key.substring(2);
-            context.write(new Text(host), new FloatWritable((float)cnt / total_sum));
+            /* write your code here */
+            /* your output assumed to be: HOST -> percent */
         }
     }
 
