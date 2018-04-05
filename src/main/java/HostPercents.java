@@ -53,8 +53,6 @@ public class HostPercents extends Configured implements Tool {
     }
 
     public static class HostPercentsMapper2 extends Mapper<LongWritable, Text, Text, IntWritable> {
-        static IntWritable one = new IntWritable(1);
-
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String[] host_cnt = value.toString().split("\t");
